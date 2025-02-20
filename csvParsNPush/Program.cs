@@ -11,7 +11,9 @@ public class Program
         //for ex: "Server=yourServer;Database=yourDB;User Id=your_user_id;Password=your_password;"
         string connectionString = inputHelper.GetConnectionString();
         
-        string tableName = "your table name ";
+        string tableName = inputHelper.GetTableName(connectionString);
+        
+        
         int countOfFields = 5; //insert count of fields in your csv file
 
         Parser parser = new Parser();

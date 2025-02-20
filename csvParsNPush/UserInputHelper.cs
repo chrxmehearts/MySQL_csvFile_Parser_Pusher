@@ -1,9 +1,62 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace csvParsNPush;
 
 public class UserInputHelper
 {
+    public string GetTableName(string connectionString)
+    {
+        string? tableName;
+        while (true)
+        {
+            Console.WriteLine("Please enter your MySQL table name:");
+            tableName = Console.ReadLine();
+
+            if (IsValidTableName(connectionString, tableName))
+            {
+                break;
+            }
+        }
+
+        return tableName!;
+    }
+
+    private bool IsValidTableName(string connectionString, string? tableName)
+    {
+        if (string.IsNullOrWhiteSpace(tableName))
+        {
+            Console.WriteLine("Error: Table name cannot be empty. Try again.");
+            return false;
+        }
+
+        try
+        {
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+                string query = "SHOW TABLES LIKE @TableName";
+                var result = connection.QueryFirstOrDefault(query, new { TableName = tableName });
+                if (result != null)
+                {
+                    Console.WriteLine($"Table '{tableName}' exists in the database.");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Error: Table '{tableName}' does not exist in the database.");
+                    return false;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+            return false;
+        }
+    }
+
+
     public string GetConnectionString()
     {
         string? connectionString;
