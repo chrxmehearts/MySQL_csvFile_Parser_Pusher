@@ -1,0 +1,1 @@
+csvParsNPush is a C# console application designed to parse CSV files and push the data into a MySQL database effortlessly. It provides a streamlined solution for data migration, initial database seeding, or integration tasks.
