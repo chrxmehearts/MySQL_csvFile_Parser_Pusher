@@ -13,8 +13,7 @@ public class Program
         
         string tableName = inputHelper.GetTableName(connectionString);
         
-        
-        int countOfFields = 5; //insert count of fields in your csv file
+        int countOfFields = CsvHelper.GetFieldCountFromCsv(csvPath);
 
         Parser parser = new Parser();
         Pusher pusher = new Pusher(connectionString, tableName);
