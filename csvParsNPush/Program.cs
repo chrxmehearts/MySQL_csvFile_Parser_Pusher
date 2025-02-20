@@ -8,7 +8,9 @@ public class Program
         
         string csvPath = inputHelper.GetCsvFilePath();
         
-        string connectionString = "Server=yourServer;Database=yourDB;User Id=your user id ;Password=your password;";
+        //for ex: "Server=yourServer;Database=yourDB;User Id=your_user_id;Password=your_password;"
+        string connectionString = inputHelper.GetConnectionString();
+        
         string tableName = "your table name ";
         int countOfFields = 5; //insert count of fields in your csv file
 
