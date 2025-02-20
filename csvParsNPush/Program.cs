@@ -14,12 +14,17 @@ public class Program
 
         List<Dictionary<string, string?>> data = parser.ParseCsv(csvPath, countOfFields);
 
+        logOfParsedData(data);
+        
+        pusher.PushToDB(data);
+    }
+
+    private static void logOfParsedData(List<Dictionary<string, string?>> data)
+    {
         Console.WriteLine("Parsed data:");
         foreach (var record in data)
         {
             Console.WriteLine("{" + string.Join(", ", record) + "}");
         }
-
-        pusher.PushToDB(data);
     }
 }
